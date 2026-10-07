@@ -1,953 +1,1381 @@
+
+
 const questions = [
-    {
-        text: "Вы с друзьями собираетесь куда-то на выходных. До поездки осталось два дня, но никто ничего толком не организовал. Что ты скорее сделаешь?",
-        answers: [
-            {
-                text: "Подожду — если всем надо, кто-нибудь в итоге займётся организацией.",
-                score: { initiative: 0, independence: 1, flexibility: 3 }
-            },
-            {
-                text: "Сам предложу конкретный план и посмотрю, кто подключится.",
-                score: { initiative: 4, reliability: 3, responsibility: 3 }
-            },
-            {
-                text: "Напишу каждому отдельно и выясню, чего вообще хотят люди.",
-                score: { communication: 4, empathy: 3, flexibility: 3 }
-            },
-            {
-                text: "Предложу отменить всё и придумать что-нибудь проще.",
-                score: { independence: 2, flexibility: 4, initiative: 2 }
-            }
-        ]
-    },
 
-    {
-        text: "Тебе предлагают попробовать занятие, в котором ты вообще не разбираешься, но оно потенциально может тебе понравиться.",
-        answers: [
-            {
-                text: "Сначала посмотрю, как это делают другие.",
-                score: { flexibility: 3, independence: 2, communication: 1 }
-            },
-            {
-                text: "Сразу попробую, а там разберусь.",
-                score: { initiative: 4, flexibility: 4, growth: 4 }
-            },
-            {
-                text: "Почитаю немного информации и решу, стоит ли оно времени.",
-                score: { independence: 4, responsibility: 3, growth: 3 }
-            },
-            {
-                text: "Скорее откажусь — не люблю тратить время на непонятные вещи.",
-                score: { independence: 2, responsibility: 2, flexibility: 0 }
-            }
-        ]
-    },
+  {
+    text: "Представь: ты приходишь в новое место, а там внезапно появляется задача, которую никто не взял на себя. Что ты скорее сделаешь?",
+    answers: [
+      {
+        text: "Если меня попросят — помогу.",
+        scores: { initiative: 2, reliability: 2 }
+      },
+      {
+        text: "Сначала посмотрю, что происходит, и возьму то, с чем могу справиться.",
+        scores: { initiative: 5, reliability: 4 }
+      },
+      {
+        text: "Если я этого не умею, лучше не вмешиваться.",
+        scores: { initiative: 1, independence: 2 }
+      },
+      {
+        text: "Сначала выясню, почему это вообще оказалось моей проблемой.",
+        scores: { independence: 4, boundaries: 3 }
+      }
+    ]
+  },
 
-    {
-        text: "Ты получил неожиданно свободные деньги, которые не обязан тратить прямо сейчас.",
-        answers: [
-            {
-                text: "Куплю то, что давно хотелось.",
-                score: { initiative: 2, flexibility: 3, responsibility: 1 }
-            },
-            {
-                text: "Отложу большую часть, а остальное потрачу на приятное.",
-                score: { responsibility: 4, reliability: 3, independence: 3 }
-            },
-            {
-                text: "Вложу в что-нибудь, что потенциально принесёт пользу позже.",
-                score: { growth: 4, initiative: 3, independence: 4 }
-            },
-            {
-                text: "Пока ничего не буду решать — пусть полежат.",
-                score: { responsibility: 3, flexibility: 2, independence: 2 }
-            }
-        ]
-    },
 
-    {
-        text: "В совместном деле человек постоянно говорит «сделаю», но потом забывает.",
-        answers: [
-            {
-                text: "Начну делать его часть сам, чтобы не зависеть от него.",
-                score: { independence: 4, responsibility: 4, initiative: 3 }
-            },
-            {
-                text: "Прямо скажу, что меня это не устраивает.",
-                score: { communication: 4, conflict: 4, reliability: 4 }
-            },
-            {
-                text: "Дам ему ещё один шанс — вдруг сейчас действительно что-то случилось.",
-                score: { empathy: 4, flexibility: 3, loyalty: 3 }
-            },
-            {
-                text: "Перестану рассчитывать на него и просто буду учитывать это дальше.",
-                score: { independence: 4, responsibility: 3, conflict: 2 }
-            }
-        ]
-    },
+  {
+    text: "Твой близкий человек делает то, с чем ты категорически не согласен. Что кажется тебе наиболее здоровым вариантом?",
+    answers: [
+      {
+        text: "Поддержать его в любом случае.",
+        scores: { loyalty: 5, maturity: 1 }
+      },
+      {
+        text: "Сказать ему честно, что я думаю, но решить проблему между нами.",
+        scores: { maturity: 5, loyalty: 5, team: 5 }
+      },
+      {
+        text: "Не вмешиваться. Каждый сам отвечает за свои решения.",
+        scores: { independence: 5, team: 1 }
+      },
+      {
+        text: "Сразу рассказать другим людям, что он неправ.",
+        scores: { maturity: 1, loyalty: 1, boundaries: 1 }
+      }
+    ]
+  },
 
-    {
-        text: "Человек, которого ты хорошо знаешь, поступил с кем-то довольно неприятно. Ты не знаешь всей ситуации.",
-        answers: [
-            {
-                text: "Не буду вмешиваться в чужую историю.",
-                score: { independence: 3, boundaries: 4, conflict: 2 }
-            },
-            {
-                text: "Сначала попробую понять, что произошло с обеих сторон.",
-                score: { empathy: 4, communication: 4, flexibility: 4 }
-            },
-            {
-                text: "Спрошу знакомого напрямую, зачем он так сделал.",
-                score: { communication: 4, initiative: 3, conflict: 3 }
-            },
-            {
-                text: "Если пострадавший мне близок, сначала встану на его сторону.",
-                score: { loyalty: 4, boundaries: 2, empathy: 3 }
-            }
-        ]
-    },
 
-    {
-        text: "Ты с кем-то договорился о встрече, а человек за пару часов до неё всё отменяет.",
-        answers: [
-            {
-                text: "Ничего страшного, займусь своими делами.",
-                score: { independence: 4, flexibility: 4, conflict: 1 }
-            },
-            {
-                text: "Предложу сразу выбрать другую дату.",
-                score: { initiative: 4, communication: 3, reliability: 3 }
-            },
-            {
-                text: "Спрошу, что случилось, прежде чем решать, как к этому относиться.",
-                score: { empathy: 4, communication: 4, flexibility: 3 }
-            },
-            {
-                text: "Скорее всего, мне станет неприятно, и второй раз инициировать встречу не захочу.",
-                score: { boundaries: 3, reliability: 2, conflict: 2 }
-            }
-        ]
-    },
+  {
+    text: "Друг предлагает тебе провести вечер в компании людей, которых ты почти не знаешь. Твоя первая реакция?",
+    answers: [
+      {
+        text: "Почему бы и нет. Разберусь по ситуации.",
+        scores: { independence: 4, initiative: 3 }
+      },
+      {
+        text: "Сначала хочу понять, кто там будет.",
+        scores: { boundaries: 4, maturity: 3 }
+      },
+      {
+        text: "Если друзья идут, я тоже.",
+        scores: { loyalty: 3, team: 2 }
+      },
+      {
+        text: "Предпочту не идти, если компания мне незнакома.",
+        scores: { boundaries: 3, independence: 2 }
+      }
+    ]
+  },
 
-    {
-        text: "Ты заметил, что человек рядом с тобой сильно переживает из-за ситуации, которая тебе кажется незначительной.",
-        answers: [
-            {
-                text: "Попытаюсь быстро его успокоить и переключить внимание.",
-                score: { empathy: 3, initiative: 3, communication: 2 }
-            },
-            {
-                text: "Спрошу, что именно его беспокоит.",
-                score: { empathy: 4, communication: 4 }
-            },
-            {
-                text: "Скажу честно, что проблема кажется мне не такой серьёзной.",
-                score: { communication: 3, independence: 3, empathy: 1 }
-            },
-            {
-                text: "Дам ему пространство — если захочет, сам расскажет.",
-                score: { boundaries: 4, empathy: 3, independence: 3 }
-            }
-        ]
-    },
 
-    {
-        text: "В споре ты понял, что твоя первая реакция была несправедливой.",
-        answers: [
-            {
-                text: "Если спор уже закончился, не вижу смысла возвращаться.",
-                score: { conflict: 1, independence: 3, responsibility: 1 }
-            },
-            {
-                text: "Скажу об этом сразу, даже если будет неловко.",
-                score: { communication: 4, responsibility: 4, conflict: 4 }
-            },
-            {
-                text: "Подожду, пока эмоции улягутся, и потом поговорю.",
-                score: { conflict: 4, flexibility: 3, communication: 4 }
-            },
-            {
-                text: "Постараюсь исправить ситуацию поступком, не делая из этого отдельного разговора.",
-                score: { responsibility: 4, initiative: 3, communication: 2 }
-            }
-        ]
-    },
+  {
+    text: "Если человек, которого ты уважаешь, говорит тебе: «Ты здесь неправ», что тебе ближе?",
+    answers: [
+      {
+        text: "Скорее всего, начну доказывать свою позицию.",
+        scores: { independence: 3, maturity: 1 }
+      },
+      {
+        text: "Выслушаю и попробую понять, есть ли в его словах смысл.",
+        scores: { maturity: 5, independence: 4 }
+      },
+      {
+        text: "Если это близкий человек, скорее соглашусь.",
+        scores: { loyalty: 3, team: 3 }
+      },
+      {
+        text: "Предпочту вообще не спорить.",
+        scores: { maturity: 2, boundaries: 1 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе нужно выбрать человека для важного совместного проекта. Один очень талантливый, но часто подводит. Второй средний по способностям, зато всегда делает обещанное.",
-        answers: [
-            {
-                text: "Возьму талантливого — результат важнее всего.",
-                score: { growth: 4, initiative: 3, responsibility: 1 }
-            },
-            {
-                text: "Возьму надёжного — стабильность важнее максимального результата.",
-                score: { reliability: 4, responsibility: 4, independence: 2 }
-            },
-            {
-                text: "Попробую распределить задачи так, чтобы использовать сильные стороны обоих.",
-                score: { initiative: 4, communication: 4, flexibility: 4 }
-            },
-            {
-                text: "Сначала выясню, насколько критична ошибка, если первый снова подведёт.",
-                score: { responsibility: 4, independence: 4, communication: 2 }
-            }
-        ]
-    },
 
-    {
-        text: "Кто-то при всех пошутил над человеком, которого ты хорошо знаешь. Шутка вроде смешная, но тебе кажется, что она задела.",
-        answers: [
-            {
-                text: "Не буду вмешиваться — человек сам разберётся.",
-                score: { independence: 3, boundaries: 4, conflict: 1 }
-            },
-            {
-                text: "Поддержу шутку, если она действительно смешная.",
-                score: { flexibility: 3, communication: 2, loyalty: 1 }
-            },
-            {
-                text: "Переведу разговор в другую сторону.",
-                score: { conflict: 3, empathy: 3, flexibility: 4 }
-            },
-            {
-                text: "Если вижу, что человеку реально неприятно, остановлю это.",
-                score: { loyalty: 4, conflict: 4, initiative: 4 }
-            }
-        ]
-    },
+  {
+    text: "Ты не умеешь делать какую-то практическую вещь, но она неожиданно становится необходимой. Что ближе?",
+    answers: [
+      {
+        text: "Попрошу человека, который умеет.",
+        scores: { reliability: 2 }
+      },
+      {
+        text: "Посмотрю инструкцию и попробую разобраться.",
+        scores: { initiative: 5, independence: 5, reliability: 5 }
+      },
+      {
+        text: "Если это не моя специализация, лучше не лезть.",
+        scores: { boundaries: 4 }
+      },
+      {
+        text: "Буду пробовать, даже если сначала получится криво.",
+        scores: { initiative: 5, independence: 4 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе предлагают возможность, которая может сильно улучшить твою жизнь, но потребует много времени и усилий ближайшие полгода.",
-        answers: [
-            {
-                text: "Соглашусь — такие возможности редко появляются.",
-                score: { initiative: 4, growth: 4, flexibility: 3 }
-            },
-            {
-                text: "Сначала посчитаю, что конкретно потеряю ради этого.",
-                score: { responsibility: 4, independence: 4, reliability: 3 }
-            },
-            {
-                text: "Попробую найти способ совместить это с нынешней жизнью.",
-                score: { initiative: 4, flexibility: 4, growth: 3 }
-            },
-            {
-                text: "Скорее откажусь — полгода слишком большой срок.",
-                score: { responsibility: 2, flexibility: 1, growth: 1 }
-            }
-        ]
-    },
 
-    {
-        text: "Ты живёшь с другим человеком, и он регулярно оставляет после себя мелкий беспорядок.",
-        answers: [
-            {
-                text: "Буду убирать сам, если меня это раздражает.",
-                score: { responsibility: 3, independence: 3, communication: 1 }
-            },
-            {
-                text: "Скажу об этом прямо, пока проблема небольшая.",
-                score: { communication: 4, conflict: 4, responsibility: 4 }
-            },
-            {
-                text: "Предложу договориться, кто за что отвечает.",
-                score: { initiative: 4, communication: 4, reliability: 4 }
-            },
-            {
-                text: "Не буду обращать внимания, пока это не станет серьёзной проблемой.",
-                score: { flexibility: 4, boundaries: 3, responsibility: 1 }
-            }
-        ]
-    },
+  {
+    text: "Два близких тебе человека серьёзно поссорились. Какой подход тебе ближе?",
+    answers: [
+      {
+        text: "Я не вмешиваюсь вообще.",
+        scores: { independence: 4, team: 1 }
+      },
+      {
+        text: "Постараюсь понять обе стороны и помочь им нормально поговорить.",
+        scores: { maturity: 5, team: 4 }
+      },
+      {
+        text: "Поддержу того, кто мне ближе.",
+        scores: { loyalty: 4, team: 3 }
+      },
+      {
+        text: "Если один явно неправ, скажу ему об этом.",
+        scores: { maturity: 4, independence: 4 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе нужно разобраться с вещью, которую ты никогда раньше не делал, а инструкции нет.",
-        answers: [
-            {
-                text: "Найду человека, который умеет это делать.",
-                score: { communication: 3, independence: 1, initiative: 2 }
-            },
-            {
-                text: "Начну разбираться самостоятельно методом проб и ошибок.",
-                score: { independence: 4, initiative: 4, flexibility: 4 }
-            },
-            {
-                text: "Поищу информацию и сначала пойму принцип.",
-                score: { independence: 4, growth: 4, responsibility: 3 }
-            },
-            {
-                text: "Попробую сделать на глаз — иногда проще начать, чем долго готовиться.",
-                score: { initiative: 4, flexibility: 4, responsibility: 1 }
-            }
-        ]
-    },
 
-    {
-        text: "Твой близкий человек рассказывает тебе о конфликте с кем-то. По его версии, он полностью прав.",
-        answers: [
-            {
-                text: "Поддержу его — ему сейчас важнее всего почувствовать, что он не один.",
-                score: { loyalty: 4, empathy: 4, boundaries: 2 }
-            },
-            {
-                text: "Сначала выслушаю подробности, а потом скажу, как это выглядит со стороны.",
-                score: { communication: 4, empathy: 4, independence: 4 }
-            },
-            {
-                text: "Не стану оценивать, пока не услышу вторую сторону.",
-                score: { independence: 4, flexibility: 4, boundaries: 4 }
-            },
-            {
-                text: "Если считаю, что он неправ, прямо скажу это.",
-                score: { honesty: 4, communication: 4, conflict: 4 }
-            }
-        ]
-    },
+  {
+    text: "Как ты относишься к людям, которые постоянно меняют планы в последний момент?",
+    answers: [
+      {
+        text: "Нормально, всякое бывает.",
+        scores: { maturity: 2 }
+      },
+      {
+        text: "Раздражает, особенно если это происходит постоянно.",
+        scores: { boundaries: 4, reliability: 4 }
+      },
+      {
+        text: "Мне всё равно, я сам ничего не планирую.",
+        scores: { independence: 2, reliability: 1 }
+      },
+      {
+        text: "Если человек предупредил и объяснил — нормально.",
+        scores: { maturity: 5, boundaries: 4 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе поручили дело, которое ты обещал закончить к определённому сроку. В процессе стало понятно, что ты не успеваешь.",
-        answers: [
-            {
-                text: "Буду выкладываться до последнего, даже если придётся сильно напрячься.",
-                score: { responsibility: 4, reliability: 4, initiative: 3 }
-            },
-            {
-                text: "Предупрежу заранее и предложу новый срок.",
-                score: { communication: 4, reliability: 4, responsibility: 4 }
-            },
-            {
-                text: "Попробую найти способ сократить объём работы.",
-                score: { initiative: 4, independence: 4, flexibility: 3 }
-            },
-            {
-                text: "Попрошу кого-нибудь помочь — так будет быстрее.",
-                score: { communication: 3, flexibility: 4, independence: 2 }
-            }
-        ]
-    },
 
-    {
-        text: "Ты заметил, что человек часто соглашается на всё, а потом оказывается перегружен.",
-        answers: [
-            {
-                text: "Это его выбор — пусть сам разбирается.",
-                score: { independence: 4, boundaries: 4, empathy: 1 }
-            },
-            {
-                text: "Попробую объяснить ему, что он берёт на себя слишком много.",
-                score: { empathy: 3, communication: 4, initiative: 3 }
-            },
-            {
-                text: "Предложу конкретно помочь с чем-то из его списка.",
-                score: { initiative: 4, empathy: 4, responsibility: 3 }
-            },
-            {
-                text: "Подожду, пока он сам попросит о помощи.",
-                score: { boundaries: 4, independence: 3, empathy: 2 }
-            }
-        ]
-    },
+  {
+    text: "Ты видишь, что человеку рядом с тобой явно нужна помощь, но он ничего не просит. Что скорее всего сделаешь?",
+    answers: [
+      {
+        text: "Ничего. Если понадобится — попросит.",
+        scores: { boundaries: 4 }
+      },
+      {
+        text: "Скорее предложу помощь.",
+        scores: { initiative: 5, team: 4, loyalty: 4 }
+      },
+      {
+        text: "Сначала посмотрю, действительно ли ему нужна помощь.",
+        scores: { maturity: 4, initiative: 3 }
+      },
+      {
+        text: "Подожду, пока ситуация станет очевидной.",
+        scores: { initiative: 1 }
+      }
+    ]
+  },
 
-    {
-        text: "Ты узнаёшь, что человек присвоил себе часть заслуг за работу, которую в основном сделал кто-то другой.",
-        answers: [
-            {
-                text: "Если это меня напрямую не касается, не полезу.",
-                score: { boundaries: 4, independence: 3 }
-            },
-            {
-                text: "Скажу ему лично, что это выглядит нечестно.",
-                score: { conflict: 4, communication: 4, responsibility: 3 }
-            },
-            {
-                text: "Попробую сделать так, чтобы настоящий автор получил признание.",
-                score: { initiative: 4, loyalty: 4, responsibility: 4 }
-            },
-            {
-                text: "Запомню это и просто больше не буду на него рассчитывать.",
-                score: { independence: 4, boundaries: 3, reliability: 2 }
-            }
-        ]
-    },
 
-    {
-        text: "У тебя есть свободный вечер. Ты устал, но есть несколько дел, которые давно откладывал.",
-        answers: [
-            {
-                text: "Отложу всё ещё на день и нормально отдохну.",
-                score: { flexibility: 4, independence: 3, responsibility: 1 }
-            },
-            {
-                text: "Сделаю хотя бы самое важное, потом буду отдыхать.",
-                score: { responsibility: 4, reliability: 4, initiative: 3 }
-            },
-            {
-                text: "Попробую быстро закрыть все мелкие дела одним заходом.",
-                score: { initiative: 4, responsibility: 3, independence: 3 }
-            },
-            {
-                text: "Выберу то дело, которое даст самый заметный результат.",
-                score: { growth: 3, independence: 4, responsibility: 3 }
-            }
-        ]
-    },
+  {
+    text: "Что для тебя важнее всего в близком человеке?",
+    answers: [
+      {
+        text: "Чтобы с ним было интересно.",
+        scores: { independence: 3 }
+      },
+      {
+        text: "Чтобы на него можно было положиться.",
+        scores: { reliability: 5, loyalty: 4 }
+      },
+      {
+        text: "Чтобы он давал мне много свободы.",
+        scores: { independence: 5, boundaries: 4 }
+      },
+      {
+        text: "Чтобы мы почти всегда были на одной стороне.",
+        scores: { team: 5, loyalty: 5 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе нужно принять решение, но два близких тебе человека советуют совершенно разные вещи.",
-        answers: [
-            {
-                text: "Выберу тот совет, который лучше подходит лично мне.",
-                score: { independence: 4, responsibility: 4 }
-            },
-            {
-                text: "Попрошу каждого объяснить, почему он так думает.",
-                score: { communication: 4, flexibility: 4 }
-            },
-            {
-                text: "Скорее прислушаюсь к тому, кому больше доверяю.",
-                score: { loyalty: 3, boundaries: 2 }
-            },
-            {
-                text: "Отложу решение, пока сам не пойму, чего хочу.",
-                score: { independence: 4, flexibility: 3 }
-            }
-        ]
-    },
 
-    {
-        text: "Человек, с которым ты близко общаешься, начал вести себя заметно холоднее.",
-        answers: [
-            {
-                text: "Дам ему время — возможно, дело вообще не во мне.",
-                score: { flexibility: 4, boundaries: 4, empathy: 3 }
-            },
-            {
-                text: "Спросю прямо, всё ли нормально.",
-                score: { communication: 4, initiative: 4 }
-            },
-            {
-                text: "Понаблюдаю несколько дней и уже потом решу, стоит ли спрашивать.",
-                score: { independence: 3, flexibility: 3, boundaries: 3 }
-            },
-            {
-                text: "Стану общаться так же холодно в ответ.",
-                score: { boundaries: 3, conflict: 2, loyalty: 1 }
-            }
-        ]
-    },
+  {
+    text: "Человек из твоего круга общения негативно высказывается о твоём близком. Твоя первая реакция?",
+    answers: [
+      {
+        text: "Пусть сами разбираются.",
+        scores: { independence: 4, loyalty: 1 }
+      },
+      {
+        text: "Сначала выясню, что именно произошло.",
+        scores: { maturity: 5, boundaries: 4 }
+      },
+      {
+        text: "Сразу встану на сторону близкого.",
+        scores: { loyalty: 5, team: 5 }
+      },
+      {
+        text: "Попрошу не втягивать меня в это.",
+        scores: { boundaries: 4, team: 1 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе дают возможность возглавить небольшую команду, но вместе с этим придётся отвечать за чужие ошибки.",
-        answers: [
-            {
-                text: "Соглашусь — интересно попробовать себя в этой роли.",
-                score: { initiative: 4, growth: 4, responsibility: 3 }
-            },
-            {
-                text: "Сначала выясню, какие именно у меня будут полномочия.",
-                score: { responsibility: 4, independence: 4, communication: 3 }
-            },
-            {
-                text: "Скорее откажусь — не хочу отвечать за то, что не контролирую.",
-                score: { boundaries: 4, independence: 3, initiative: 1 }
-            },
-            {
-                text: "Соглашусь, если смогу самостоятельно выбирать людей.",
-                score: { initiative: 4, independence: 4, responsibility: 4 }
-            }
-        ]
-    },
 
-    {
-        text: "Ты договорился с человеком о плане, но обстоятельства внезапно всё поменяли.",
-        answers: [
-            {
-                text: "Попробую сохранить первоначальный план любой ценой.",
-                score: { reliability: 4, responsibility: 3, flexibility: 1 }
-            },
-            {
-                text: "Быстро придумаю новый вариант.",
-                score: { initiative: 4, flexibility: 4 }
-            },
-            {
-                text: "Сначала обсудим, что теперь вообще имеет смысл делать.",
-                score: { communication: 4, flexibility: 4 }
-            },
-            {
-                text: "Если новый вариант слишком неудобный, просто перенесу всё.",
-                score: { boundaries: 3, responsibility: 3, flexibility: 2 }
-            }
-        ]
-    },
+  {
+    text: "Как ты обычно относишься к критике от близких людей?",
+    answers: [
+      {
+        text: "Тяжело воспринимаю, даже если понимаю, что она справедлива.",
+        scores: { maturity: 1 }
+      },
+      {
+        text: "Если критика конкретная, я могу её принять.",
+        scores: { maturity: 5, independence: 4 }
+      },
+      {
+        text: "Близкие не должны меня критиковать.",
+        scores: { maturity: 1, boundaries: 1 }
+      },
+      {
+        text: "Выслушаю, но решение всё равно принимаю сам.",
+        scores: { maturity: 5, independence: 5 }
+      }
+    ]
+  },
 
-    {
-        text: "Ты несколько раз подряд замечаешь одну и ту же проблему в своей жизни.",
-        answers: [
-            {
-                text: "Со временем привыкну и перестану обращать внимание.",
-                score: { flexibility: 3, responsibility: 1 }
-            },
-            {
-                text: "Попробую понять причину и изменить её.",
-                score: { growth: 4, independence: 4, initiative: 4 }
-            },
-            {
-                text: "Попрошу совета у человека, который уже с этим сталкивался.",
-                score: { communication: 4, growth: 3, independence: 2 }
-            },
-            {
-                text: "Буду решать проблему каждый раз, когда она появляется.",
-                score: { responsibility: 3, reliability: 3, initiative: 2 }
-            }
-        ]
-    },
 
-    {
-        text: "Тебе нужно выбрать между быстрым решением, которое сработает сейчас, и более сложным, которое может решить проблему надолго.",
-        answers: [
-            {
-                text: "Выберу быстрое — если понадобится, потом переделаю.",
-                score: { flexibility: 4, initiative: 3, responsibility: 2 }
-            },
-            {
-                text: "Сделаю сложный вариант сразу.",
-                score: { responsibility: 4, reliability: 4, growth: 3 }
-            },
-            {
-                text: "Сравню затраты времени и пойму, окупится ли долгий вариант.",
-                score: { independence: 4, responsibility: 4 }
-            },
-            {
-                text: "Попробую найти третий вариант между ними.",
-                score: { initiative: 4, flexibility: 4, growth: 3 }
-            }
-        ]
-    },
+  {
+    text: "Представь, что твой партнёр хочет попробовать что-то новое, а тебе это не особенно интересно. Что ты сделаешь?",
+    answers: [
+      {
+        text: "Откажусь, если мне это неинтересно.",
+        scores: { independence: 4, boundaries: 4 }
+      },
+      {
+        text: "Попробую хотя бы один раз.",
+        scores: { team: 4, initiative: 4, maturity: 4 }
+      },
+      {
+        text: "Скорее соглашусь, если партнёру это важно.",
+        scores: { loyalty: 4, team: 5 }
+      },
+      {
+        text: "Предложу альтернативу, которая понравится обоим.",
+        scores: { maturity: 5, team: 5 }
+      }
+    ]
+  },
 
-    {
-        text: "Твой друг просит тебя скрыть от другого человека информацию, которая его касается.",
-        answers: [
-            {
-                text: "Сохраню тайну — если друг попросил, значит, у него есть причина.",
-                score: { loyalty: 4, boundaries: 3 }
-            },
-            {
-                text: "Сначала спрошу, почему он хочет это скрыть.",
-                score: { communication: 4, empathy: 3, independence: 3 }
-            },
-            {
-                text: "Если информация может серьёзно повлиять на человека, не стану участвовать в сокрытии.",
-                score: { responsibility: 4, boundaries: 4, loyalty: 2 }
-            },
-            {
-                text: "Скажу, что не хочу знать такие вещи и не буду в этом участвовать.",
-                score: { boundaries: 4, independence: 4 }
-            }
-        ]
-    },
 
-    {
-        text: "Ты видишь, что человек рядом с тобой хочет бросить начатое дело после первой серьёзной неудачи.",
-        answers: [
-            {
-                text: "Не буду вмешиваться — это его решение.",
-                score: { boundaries: 4, independence: 3 }
-            },
-            {
-                text: "Попробую убедить его дать себе ещё один шанс.",
-                score: { empathy: 4, initiative: 3, growth: 4 }
-            },
-            {
-                text: "Спрошу, почему именно он хочет бросить.",
-                score: { communication: 4, empathy: 4 }
-            },
-            {
-                text: "Если это явно не его, соглашусь, что лучше остановиться.",
-                score: { flexibility: 4, independence: 3, empathy: 3 }
-            }
-        ]
-    },
+  {
+    text: "Что хуже для совместного дела?",
+    answers: [
+      {
+        text: "Человек не умеет что-то делать.",
+        scores: { reliability: 2 }
+      },
+      {
+        text: "Человек боится попробовать.",
+        scores: { initiative: 1 }
+      },
+      {
+        text: "Человек делает по-своему.",
+        scores: { independence: 4 }
+      },
+      {
+        text: "Человек обещает и потом не делает.",
+        scores: { reliability: 1 }
+      }
+    ]
+  },
 
-    {
-        text: "В компании возникает ситуация, где никто не хочет первым принимать решение.",
-        answers: [
-            {
-                text: "Подожду, пока кто-нибудь возьмёт ответственность.",
-                score: { flexibility: 3, initiative: 0 }
-            },
-            {
-                text: "Предложу первый вариант, даже если он не идеальный.",
-                score: { initiative: 4, responsibility: 4 }
-            },
-            {
-                text: "Попробую выяснить мнение остальных.",
-                score: { communication: 4, empathy: 3 }
-            },
-            {
-                text: "Если мне всё равно, просто соглашусь с большинством.",
-                score: { flexibility: 4, independence: 1 }
-            }
-        ]
-    },
 
-    {
-        text: "Человек извинился за неприятный поступок, но через некоторое время повторил его.",
-        answers: [
-            {
-                text: "Дам ещё шанс — все иногда ошибаются.",
-                score: { empathy: 4, flexibility: 4, loyalty: 3 }
-            },
-            {
-                text: "Обращу внимание уже не на слова, а на повторяющийся результат.",
-                score: { reliability: 4, independence: 4, responsibility: 3 }
-            },
-            {
-                text: "Скажу прямо, что одного извинения недостаточно.",
-                score: { communication: 4, conflict: 4, boundaries: 4 }
-            },
-            {
-                text: "Дистанцируюсь, не устраивая очередной разговор.",
-                score: { boundaries: 4, independence: 4 }
-            }
-        ]
-    },
+  {
+    text: "Если ты понимаешь, что твой друг относится к твоему партнёру несправедливо, что тебе ближе?",
+    answers: [
+      {
+        text: "Это их конфликт, я не вмешиваюсь.",
+        scores: { independence: 4, loyalty: 1 }
+      },
+      {
+        text: "Поговорю с другом отдельно.",
+        scores: { boundaries: 5, maturity: 5, loyalty: 4 }
+      },
+      {
+        text: "Скажу партнёру, чтобы он не обращал внимания.",
+        scores: { team: 1, maturity: 2 }
+      },
+      {
+        text: "Постараюсь сохранить хорошие отношения со всеми.",
+        scores: { maturity: 3, boundaries: 2 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе предлагают работу или проект с хорошими перспективами, но пока без гарантии результата.",
-        answers: [
-            {
-                text: "Рискну — иначе ничего нового не попробовать.",
-                score: { initiative: 4, growth: 4, flexibility: 4 }
-            },
-            {
-                text: "Сначала проверю, насколько реальны эти перспективы.",
-                score: { independence: 4, responsibility: 4 }
-            },
-            {
-                text: "Попробую договориться о безопасном формате на первое время.",
-                score: { communication: 4, flexibility: 4, responsibility: 3 }
-            },
-            {
-                text: "Скорее останусь на проверенном варианте.",
-                score: { reliability: 4, responsibility: 3, growth: 1 }
-            }
-        ]
-    },
 
-    {
-        text: "Ты случайно допустил ошибку, из-за которой другому человеку придётся потратить своё время.",
-        answers: [
-            {
-                text: "Сразу признаю ошибку и предложу сам исправить последствия.",
-                score: { responsibility: 4, reliability: 4, initiative: 4 }
-            },
-            {
-                text: "Извинюсь и объясню, как так получилось.",
-                score: { communication: 4, responsibility: 3 }
-            },
-            {
-                text: "Попытаюсь сначала самостоятельно всё исправить, а потом расскажу.",
-                score: { independence: 4, initiative: 4, responsibility: 4 }
-            },
-            {
-                text: "Если ущерб небольшой, не стану делать из этого большую проблему.",
-                score: { flexibility: 4, responsibility: 1 }
-            }
-        ]
-    },
+  {
+    text: "Как ты понимаешь здоровую независимость в отношениях?",
+    answers: [
+      {
+        text: "Каждый живёт практически своей жизнью.",
+        scores: { independence: 5, team: 1 }
+      },
+      {
+        text: "У каждого есть своё пространство, но важные вещи мы решаем вместе.",
+        scores: { independence: 5, team: 5, maturity: 5 }
+      },
+      {
+        text: "Главное — никогда не ограничивать друг друга.",
+        scores: { independence: 5, boundaries: 4 }
+      },
+      {
+        text: "Лучше делать всё вместе.",
+        scores: { team: 5, independence: 1 }
+      }
+    ]
+  },
 
-    {
-        text: "Тебе приходится выбирать: провести вечер с близким человеком или заняться делом, которое может принести пользу в будущем.",
-        answers: [
-            {
-                text: "Выберу человека — такие моменты нельзя постоянно откладывать.",
-                score: { loyalty: 4, empathy: 4, boundaries: 2 }
-            },
-            {
-                text: "Выберу дело — будущее тоже требует вложений.",
-                score: { growth: 4, independence: 4, responsibility: 4 }
-            },
-            {
-                text: "Попробую разделить время между обоими.",
-                score: { flexibility: 4, communication: 3, responsibility: 3 }
-            },
-            {
-                text: "Посмотрю, что из этого важнее именно сегодня.",
-                score: { flexibility: 4, independence: 3, responsibility: 3 }
-            }
-        ]
-    }
+
+  {
+    text: "Если близкий человек расстроен из-за твоего поступка, что тебе ближе?",
+    answers: [
+      {
+        text: "Если я не хотел его обидеть, значит проблемы нет.",
+        scores: { maturity: 1 }
+      },
+      {
+        text: "Попробую понять, что именно его задело.",
+        scores: { maturity: 5, team: 4 }
+      },
+      {
+        text: "Извинюсь, даже если считаю себя правым.",
+        scores: { loyalty: 4, maturity: 3 }
+      },
+      {
+        text: "Объясню свою позицию и не буду продолжать разговор.",
+        scores: { independence: 4, maturity: 2 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Что тебе ближе: быть человеком, который знает всё заранее, или человеком, который умеет разбираться по ходу?",
+    answers: [
+      {
+        text: "Лучше всё знать заранее.",
+        scores: { reliability: 4, boundaries: 3 }
+      },
+      {
+        text: "Уметь разбираться по ходу.",
+        scores: { initiative: 5, independence: 5 }
+      },
+      {
+        text: "Зависит от ситуации.",
+        scores: { maturity: 4 }
+      },
+      {
+        text: "Предпочитаю, чтобы кто-нибудь другой уже всё решил.",
+        scores: { initiative: 1, reliability: 1 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Твой близкий человек совершил ошибку перед другими людьми. Что кажется тебе наиболее правильным?",
+    answers: [
+      {
+        text: "Сразу сказать ему, что он неправ.",
+        scores: { maturity: 2 }
+      },
+      {
+        text: "Не унижать его публично, а обсудить потом.",
+        scores: { loyalty: 5, team: 5, maturity: 5 }
+      },
+      {
+        text: "Сделать вид, что ничего не произошло.",
+        scores: { maturity: 2, loyalty: 3 }
+      },
+      {
+        text: "Сказать другим, что я с ним не согласен.",
+        scores: { loyalty: 1, team: 1 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Если отношения становятся сложнее, чем были в начале, твоя первая реакция?",
+    answers: [
+      {
+        text: "Если стало сложно — возможно, это не мой человек.",
+        scores: { commitment: 1 }
+      },
+      {
+        text: "Попробовать понять, что изменилось.",
+        scores: { maturity: 5, commitment: 5 }
+      },
+      {
+        text: "Дать отношениям время и посмотреть.",
+        scores: { commitment: 3 }
+      },
+      {
+        text: "Поговорить напрямую.",
+        scores: { maturity: 5, commitment: 5, team: 5 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Что для тебя сильнее всего показывает характер человека?",
+    answers: [
+      {
+        text: "То, как он ведёт себя, когда всё идёт по плану.",
+        scores: { reliability: 3 }
+      },
+      {
+        text: "То, что он делает, когда никто не контролирует.",
+        scores: { reliability: 5, independence: 5 }
+      },
+      {
+        text: "То, как он выглядит в глазах других.",
+        scores: { loyalty: 2 }
+      },
+      {
+        text: "То, как он ведёт себя, когда ему трудно.",
+        scores: { reliability: 5, maturity: 5 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Тебе предлагают выбор между комфортным вариантом и вариантом, который даст больше опыта. Что выберешь?",
+    answers: [
+      {
+        text: "Комфорт.",
+        scores: { boundaries: 3 }
+      },
+      {
+        text: "Опыт.",
+        scores: { initiative: 5, independence: 4 }
+      },
+      {
+        text: "Зависит от риска.",
+        scores: { maturity: 5 }
+      },
+      {
+        text: "Выберу то, что уже умею.",
+        scores: { reliability: 3 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Как ты относишься к фразе «мы — команда»?",
+    answers: [
+      {
+        text: "Звучит красиво, но каждый всё равно сам за себя.",
+        scores: { independence: 5, team: 1 }
+      },
+      {
+        text: "Это значит, что важные проблемы мы решаем вместе.",
+        scores: { team: 5, maturity: 5 }
+      },
+      {
+        text: "Это значит всегда соглашаться друг с другом.",
+        scores: { team: 4, maturity: 1 }
+      },
+      {
+        text: "Это скорее про поддержку, а не про постоянное согласие.",
+        scores: { team: 5, loyalty: 5, maturity: 5 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Если тебе говорят: «Мне неприятно, как этот человек со мной разговаривает», что ты скорее сделаешь?",
+    answers: [
+      {
+        text: "Скажу, что человек мог не иметь плохих намерений.",
+        scores: { maturity: 2 }
+      },
+      {
+        text: "Попрошу объяснить, что именно произошло.",
+        scores: { maturity: 5, boundaries: 4 }
+      },
+      {
+        text: "Если это близкий мне человек — вмешаюсь.",
+        scores: { loyalty: 5, team: 5, boundaries: 5 }
+      },
+      {
+        text: "Скажу, что лучше не обращать внимания.",
+        scores: { loyalty: 1, team: 1 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Что тебе ближе в долгосрочных отношениях?",
+    answers: [
+      {
+        text: "Смотреть, как всё развивается само.",
+        scores: { commitment: 1 }
+      },
+      {
+        text: "Понимать, куда мы движемся.",
+        scores: { commitment: 5, reliability: 4 }
+      },
+      {
+        text: "Не загадывать слишком далеко.",
+        scores: { independence: 4, commitment: 2 }
+      },
+      {
+        text: "Строить планы, но оставлять место для изменений.",
+        scores: { commitment: 5, maturity: 5 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Если ты понимаешь, что твой близкий человек сильно расстроен, но формально он неправ, что тебе ближе?",
+    answers: [
+      {
+        text: "Сказать ему прямо, что он неправ.",
+        scores: { independence: 4, maturity: 3 }
+      },
+      {
+        text: "Сначала поддержать, потом обсудить, где он ошибся.",
+        scores: { loyalty: 5, team: 5, maturity: 5 }
+      },
+      {
+        text: "Не вмешиваться.",
+        scores: { independence: 4, team: 1 }
+      },
+      {
+        text: "Согласиться с ним, чтобы не расстраивать.",
+        scores: { loyalty: 4, maturity: 1 }
+      }
+    ]
+  },
+
+
+  {
+    text: "Какой человек вызывает у тебя больше уважения?",
+    answers: [
+      {
+        text: "Тот, кто всегда знает, что делает.",
+        scores: { reliability: 4 }
+      },
+      {
+        text: "Тот, кто может признать, что чего-то не знает, и научиться.",
+        scores: { initiative: 5, maturity: 5, independence: 5 }
+      },
+      {
+        text: "Тот, кто умеет добиваться своего.",
+        scores: { independence: 5, initiative: 4 }
+      },
+      {
+        text: "Тот, кто умеет ладить со всеми.",
+        scores: { maturity: 3, boundaries: 2 }
+      }
+    ]
+  }
+
 ];
 
-const traitNames = {
-    initiative: "Инициативность",
-    independence: "Самостоятельность",
-    reliability: "Надёжность",
-    responsibility: "Ответственность",
-    loyalty: "Лояльность",
-    boundaries: "Личные границы",
-    flexibility: "Гибкость",
-    empathy: "Эмпатия",
-    communication: "Коммуникация",
-    conflict: "Поведение в конфликте",
-    growth: "Развитие"
-};
 
-const profiles = [
-    {
-        title: "Практический организатор",
-        description:
-            "Ты предпочитаешь не оставлять важные вещи на волю случая. Если что-то нужно сделать — проще разобраться и сделать, чем долго ждать.",
-        message:
-            "Твой стиль — меньше лишних слов, больше конкретных действий."
-    },
-    {
-        title: "Самостоятельный исследователь",
-        description:
-            "Ты довольно спокойно двигаешься своим путём и не любишь принимать решения только потому, что так принято или кто-то так сказал.",
-        message:
-            "Тебе важно понимать, зачем ты что-то делаешь, а не просто следовать готовому сценарию."
-    },
-    {
-        title: "Командный человек",
-        description:
-            "Для тебя многое зависит от людей вокруг. Ты умеешь учитывать чужую позицию, договариваться и находить решения, которые работают не только для тебя.",
-        message:
-            "Ты хорошо чувствуешь разницу между «сделать самому» и «сделать вместе»."
-    },
-    {
-        title: "Спокойный стратег",
-        description:
-            "Ты не всегда стремишься действовать первым. Зато предпочитаешь сначала понять ситуацию и только потом принимать решение.",
-        message:
-            "Твоя сильная сторона — способность не теряться, когда ситуация становится сложнее первоначального плана."
-    }
-];
+
+/*
+=========================================
+STATE
+=========================================
+*/
 
 let currentQuestion = 0;
-let answersChosen = [];
-let scores = {};
 
-const startScreen = document.getElementById("startScreen");
-const quizScreen = document.getElementById("quizScreen");
-const resultScreen = document.getElementById("resultScreen");
+let selectedAnswer = null;
 
-const startBtn = document.getElementById("startBtn");
-const nextBtn = document.getElementById("nextBtn");
-const restartBtn = document.getElementById("restartBtn");
+let scores = {
+  initiative: 0,
+  reliability: 0,
+  team: 0,
+  boundaries: 0,
+  independence: 0,
+  maturity: 0,
+  loyalty: 0,
+  commitment: 0
+};
 
-const questionText = document.getElementById("questionText");
-const answersContainer = document.getElementById("answers");
 
-const currentQuestionEl = document.getElementById("currentQuestion");
-const totalQuestionsEl = document.getElementById("totalQuestions");
-const questionNumberEl = document.getElementById("questionNumber");
-const progressBar = document.getElementById("progressBar");
+/*
+=========================================
+DOM
+=========================================
+*/
 
-const resultTitle = document.getElementById("resultTitle");
-const resultDescription = document.getElementById("resultDescription");
-const resultMessage = document.getElementById("resultMessage");
-const traitsContainer = document.getElementById("traits");
+const startScreen =
+  document.getElementById("start-screen");
 
-totalQuestionsEl.textContent = questions.length;
+const quizScreen =
+  document.getElementById("quiz-screen");
 
-startBtn.addEventListener("click", startTest);
-nextBtn.addEventListener("click", nextQuestion);
-restartBtn.addEventListener("click", restartTest);
+const resultScreen =
+  document.getElementById("result-screen");
 
-function startTest() {
-    currentQuestion = 0;
-    answersChosen = [];
-    scores = {};
+const startBtn =
+  document.getElementById("start-btn");
 
-    startScreen.classList.remove("active");
-    resultScreen.classList.remove("active");
-    quizScreen.classList.add("active");
+const nextBtn =
+  document.getElementById("next-btn");
 
-    showQuestion();
+const restartBtn =
+  document.getElementById("restart-btn");
+
+const questionText =
+  document.getElementById("question-text");
+
+const questionNumber =
+  document.getElementById("question-number");
+
+const answersContainer =
+  document.getElementById("answers");
+
+const questionCounter =
+  document.getElementById("question-counter");
+
+const progress =
+  document.getElementById("progress");
+
+const percent =
+  document.getElementById("percent");
+
+
+
+/*
+=========================================
+START
+=========================================
+*/
+
+startBtn.addEventListener("click", startQuiz);
+
+function startQuiz() {
+
+  currentQuestion = 0;
+
+  scores = {
+    initiative: 0,
+    reliability: 0,
+    team: 0,
+    boundaries: 0,
+    independence: 0,
+    maturity: 0,
+    loyalty: 0,
+    commitment: 0
+  };
+
+  startScreen.classList.remove("active");
+
+  resultScreen.classList.remove("active");
+
+  quizScreen.classList.add("active");
+
+  showQuestion();
 }
+
+
+
+/*
+=========================================
+SHOW QUESTION
+=========================================
+*/
 
 function showQuestion() {
-    const question = questions[currentQuestion];
 
-    currentQuestionEl.textContent = currentQuestion + 1;
-    questionNumberEl.textContent = String(currentQuestion + 1).padStart(2, "0");
+  selectedAnswer = null;
 
-    questionText.textContent = question.text;
+  nextBtn.disabled = true;
 
-    const progress =
-        ((currentQuestion + 1) / questions.length) * 100;
+  const question = questions[currentQuestion];
 
-    progressBar.style.width = `${progress}%`;
+  questionText.textContent = question.text;
 
-    answersContainer.innerHTML = "";
-    nextBtn.disabled = true;
+  questionNumber.textContent =
+    String(currentQuestion + 1).padStart(2, "0");
 
-    question.answers.forEach((answer, index) => {
-        const button = document.createElement("button");
+  questionCounter.textContent =
+    `Вопрос ${currentQuestion + 1} из ${questions.length}`;
 
-        button.className = "answer-btn";
-        button.textContent = answer.text;
+  const percentage =
+    Math.round(
+      ((currentQuestion + 1) / questions.length) * 100
+    );
 
-        button.addEventListener("click", () => {
-            document
-                .querySelectorAll(".answer-btn")
-                .forEach(btn => btn.classList.remove("selected"));
+  percent.textContent = `${percentage}%`;
 
-            button.classList.add("selected");
+  progress.style.width = `${percentage}%`;
 
-            answersChosen[currentQuestion] = index;
-            nextBtn.disabled = false;
-        });
+  answersContainer.innerHTML = "";
 
-        answersContainer.appendChild(button);
-    });
+  const shuffledAnswers =
+    [...question.answers].sort(() => Math.random() - 0.5);
 
-    nextBtn.textContent =
-        currentQuestion === questions.length - 1
-            ? "Показать результат"
-            : "Далее";
+  shuffledAnswers.forEach((answer, index) => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "answer";
+
+    button.innerHTML = `
+      <span class="answer-letter">
+        ${String.fromCharCode(65 + index)}
+      </span>
+      ${answer.text}
+    `;
+
+    button.addEventListener(
+      "click",
+      () => selectAnswer(button, answer)
+    );
+
+    answersContainer.appendChild(button);
+  });
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 }
+
+
+
+/*
+=========================================
+SELECT ANSWER
+=========================================
+*/
+
+function selectAnswer(button, answer) {
+
+  document
+    .querySelectorAll(".answer")
+    .forEach(el =>
+      el.classList.remove("selected")
+    );
+
+  button.classList.add("selected");
+
+  selectedAnswer = answer;
+
+  nextBtn.disabled = false;
+}
+
+
+
+/*
+=========================================
+NEXT
+=========================================
+*/
+
+nextBtn.addEventListener("click", nextQuestion);
 
 function nextQuestion() {
-    if (answersChosen[currentQuestion] === undefined) return;
 
-    const selectedIndex = answersChosen[currentQuestion];
-    const selectedAnswer =
-        questions[currentQuestion].answers[selectedIndex];
+  if (!selectedAnswer) return;
 
-    Object.entries(selectedAnswer.score).forEach(([trait, value]) => {
-        scores[trait] = (scores[trait] || 0) + value;
+  Object.entries(selectedAnswer.scores)
+    .forEach(([trait, value]) => {
+
+      scores[trait] += value;
+
     });
 
-    if (currentQuestion < questions.length - 1) {
-        currentQuestion++;
-        showQuestion();
-    } else {
-        showResult();
-    }
-}
+  currentQuestion++;
 
-function showResult() {
-    quizScreen.classList.remove("active");
-    resultScreen.classList.add("active");
+  if (currentQuestion >= questions.length) {
 
-    const profile = getProfile();
+    finishQuiz();
 
-    resultTitle.textContent = profile.title;
-    resultDescription.textContent = profile.description;
-    resultMessage.textContent = profile.message;
-
-    renderTraits();
-}
-
-function getProfile() {
-    const values = Object.values(scores);
-
-    const initiative =
-        scores.initiative || 0;
-
-    const independence =
-        scores.independence || 0;
-
-    const communication =
-        scores.communication || 0;
-
-    const reliability =
-        scores.reliability || 0;
-
-    const growth =
-        scores.growth || 0;
-
-    const average =
-        values.length > 0
-            ? values.reduce((a, b) => a + b, 0) / values.length
-            : 0;
-
-    if (
-        initiative + reliability >=
-        independence + communication &&
-        initiative >= growth
-    ) {
-        return profiles[0];
-    }
-
-    if (
-        independence + growth >=
-        communication + reliability
-    ) {
-        return profiles[1];
-    }
-
-    if (
-        communication + reliability >=
-        independence + initiative &&
-        communication >= average
-    ) {
-        return profiles[2];
-    }
-
-    return profiles[3];
-}
-
-function renderTraits() {
-    traitsContainer.innerHTML = "";
-
-    const visibleTraits = [
-        "initiative",
-        "independence",
-        "reliability",
-        "flexibility",
-        "communication",
-        "growth"
-    ];
-
-    visibleTraits.forEach(trait => {
-        const value = scores[trait] || 0;
-
-        const maxPossible = questions.reduce((total, question) => {
-            const maxForQuestion = Math.max(
-                ...question.answers.map(answer =>
-                    answer.score[trait] || 0
-                )
-            );
-
-            return total + maxForQuestion;
-        }, 0);
-
-        const percentage =
-            maxPossible > 0
-                ? Math.round((value / maxPossible) * 100)
-                : 0;
-
-        const traitElement = document.createElement("div");
-        traitElement.className = "trait";
-
-        traitElement.innerHTML = `
-            <div class="trait-header">
-                <span>${traitNames[trait]}</span>
-                <strong>${percentage}%</strong>
-            </div>
-
-            <div class="trait-bar">
-                <div class="trait-fill" style="width: ${percentage}%"></div>
-            </div>
-        `;
-
-        traitsContainer.appendChild(traitElement);
-    });
-}
-
-function restartTest() {
-    currentQuestion = 0;
-    answersChosen = [];
-    scores = {};
-
-    resultScreen.classList.remove("active");
-    quizScreen.classList.add("active");
+  } else {
 
     showQuestion();
+
+  }
 }
+
+
+
+/*
+=========================================
+NORMALIZE SCORES
+=========================================
+*/
+
+function normalizeScores() {
+
+  const maxPossible = {};
+
+  Object.keys(scores).forEach(trait => {
+    maxPossible[trait] = 25 * 5;
+  });
+
+  const normalized = {};
+
+  Object.keys(scores).forEach(trait => {
+
+    normalized[trait] =
+      Math.min(
+        100,
+        Math.round(
+          (scores[trait] / maxPossible[trait]) * 100
+        )
+      );
+
+  });
+
+  return normalized;
+}
+
+
+
+/*
+=========================================
+COMPATIBILITY
+=========================================
+
+Здесь задаётся профиль, который условно
+считается наиболее совместимым с тобой.
+
+Не показываем эти веса пользователю.
+=========================================
+*/
+
+function calculateCompatibility(s) {
+
+  const ideal = {
+
+    initiative: 85,
+
+    reliability: 85,
+
+    team: 90,
+
+    boundaries: 85,
+
+    independence: 80,
+
+    maturity: 90,
+
+    loyalty: 90,
+
+    commitment: 80
+
+  };
+
+
+  const weights = {
+
+    initiative: 1.2,
+
+    reliability: 1.2,
+
+    team: 1.4,
+
+    boundaries: 1.3,
+
+    independence: 0.9,
+
+    maturity: 1.4,
+
+    loyalty: 1.5,
+
+    commitment: 1.0
+
+  };
+
+
+  let total = 0;
+
+  let weightTotal = 0;
+
+
+  Object.keys(ideal).forEach(trait => {
+
+    const difference =
+      Math.abs(
+        s[trait] - ideal[trait]
+      );
+
+    const similarity =
+      100 - difference;
+
+    total +=
+      similarity * weights[trait];
+
+    weightTotal +=
+      100 * weights[trait];
+
+  });
+
+
+  return Math.round(
+    (total / weightTotal) * 100
+  );
+}
+
+
+
+/*
+=========================================
+PROFILE
+=========================================
+*/
+
+function getProfile(s) {
+
+  const team =
+    s.team >= 75;
+
+  const initiative =
+    s.initiative >= 70;
+
+  const maturity =
+    s.maturity >= 75;
+
+  const independence =
+    s.independence >= 70;
+
+  const loyalty =
+    s.loyalty >= 75;
+
+  const commitment =
+    s.commitment >= 70;
+
+
+  if (
+    team &&
+    initiative &&
+    maturity &&
+    loyalty
+  ) {
+
+    return {
+      title: "Командный самостоятельный",
+
+      description:
+        "Ты умеешь сочетать самостоятельность с ощущением команды. Для тебя близость не означает потерю свободы, а поддержка не означает отсутствие собственного мнения. Ты скорее за отношения, где оба человека остаются собой, но в важных ситуациях действуют как команда."
+    };
+
+  }
+
+
+  if (
+    initiative &&
+    independence &&
+    !team
+  ) {
+
+    return {
+      title: "Автономный исследователь",
+
+      description:
+        "Ты привык рассчитывать на себя и ценишь свободу действий. Тебе комфортно самому принимать решения и разбираться с возникающими проблемами. Иногда тебе может быть сложнее перестроиться на формат, где важные решения требуют постоянной координации с другим человеком."
+    };
+
+  }
+
+
+  if (
+    loyalty &&
+    team &&
+    !independence
+  ) {
+
+    return {
+      title: "Верный командный человек",
+
+      description:
+        "Для тебя особенно важны близость, взаимная поддержка и ощущение «мы». Ты хорошо включаешься в отношения и ценишь чувство принадлежности. При этом тебе важно не забывать о собственных границах и интересах."
+    };
+
+  }
+
+
+  if (
+    maturity &&
+    independence &&
+    initiative
+  ) {
+
+    return {
+      title: "Самостоятельный стратег",
+
+      description:
+        "Ты предпочитаешь сначала разобраться в ситуации, а затем действовать. Ценишь собственное мнение, умеешь принимать решения и скорее воспринимаешь сложности как задачи, которые можно решить."
+    };
+
+  }
+
+
+  return {
+    title: "Гибкий адаптер",
+
+    description:
+      "Ты достаточно гибко реагируешь на обстоятельства и предпочитаешь оценивать ситуацию по контексту. Твой стиль поведения может сильно меняться в зависимости от людей и обстоятельств."
+  };
+}
+
+
+
+/*
+=========================================
+FINISH
+=========================================
+*/
+
+function finishQuiz() {
+
+  const normalized =
+    normalizeScores();
+
+  const compatibility =
+    calculateCompatibility(normalized);
+
+  const profile =
+    getProfile(normalized);
+
+
+  quizScreen.classList.remove("active");
+
+  resultScreen.classList.add("active");
+
+
+  document.getElementById(
+    "result-title"
+  ).textContent = profile.title;
+
+
+  document.getElementById(
+    "result-description"
+  ).textContent = profile.description;
+
+
+  animateNumber(
+    "compatibility-score",
+    compatibility
+  );
+
+
+  setTimeout(() => {
+
+    document.getElementById(
+      "score-progress"
+    ).style.width = `${compatibility}%`;
+
+  }, 200);
+
+
+  document.getElementById(
+    "score-text"
+  ).textContent =
+    getCompatibilityText(compatibility);
+
+
+  setTrait(
+    "initiative",
+    normalized.initiative
+  );
+
+  setTrait(
+    "reliability",
+    normalized.reliability
+  );
+
+  setTrait(
+    "team",
+    normalized.team
+  );
+
+  setTrait(
+    "boundaries",
+    normalized.boundaries
+  );
+
+  setTrait(
+    "independence",
+    normalized.independence
+  );
+
+  setTrait(
+    "maturity",
+    normalized.maturity
+  );
+
+  setTrait(
+    "loyalty",
+    normalized.loyalty
+  );
+
+  setTrait(
+    "commitment",
+    normalized.commitment
+  );
+
+
+  generateHiddenMessage(normalized);
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+
+/*
+=========================================
+TRAIT UI
+=========================================
+*/
+
+function setTrait(name, value) {
+
+  const valueElement =
+    document.getElementById(
+      `${name}-value`
+    );
+
+  const barElement =
+    document.getElementById(
+      `${name}-bar`
+    );
+
+
+  valueElement.textContent =
+    `${value}%`;
+
+
+  setTimeout(() => {
+
+    barElement.style.width =
+      `${value}%`;
+
+  }, 200);
+}
+
+
+
+/*
+=========================================
+COMPATIBILITY TEXT
+=========================================
+*/
+
+function getCompatibilityText(score) {
+
+  if (score >= 90) {
+
+    return "Очень сильное совпадение по ключевым ценностям.";
+
+  }
+
+  if (score >= 80) {
+
+    return "Высокая совместимость. Большинство базовых установок хорошо сочетаются.";
+
+  }
+
+  if (score >= 70) {
+
+    return "Хорошая совместимость, но есть несколько зон, где взгляды могут различаться.";
+
+  }
+
+  if (score >= 60) {
+
+    return "Средняя совместимость. Многое будет зависеть от общения и готовности учитывать различия.";
+
+  }
+
+  return "Заметные различия в важных жизненных установках. Это не приговор, но потребуется больше взаимопонимания.";
+
+}
+
+
+
+/*
+=========================================
+HIDDEN MESSAGE
+=========================================
+
+Это можно оставить только тебе,
+если ты потом будешь смотреть результаты.
+=========================================
+*/
+
+function generateHiddenMessage(s) {
+
+  const message =
+    document.getElementById(
+      "hidden-message"
+    );
+
+
+  let text = "";
+
+
+  if (s.initiative < 55) {
+
+    text +=
+      "Низкая инициативность: человек может чаще ждать внешнего импульса, чем сам начинать действовать. ";
+
+  }
+
+
+  if (s.boundaries < 55) {
+
+    text +=
+      "Границы: может быть склонность избегать жёстких столкновений и сохранять комфортные отношения с разными людьми. ";
+
+  }
+
+
+  if (s.team < 55) {
+
+    text +=
+      "Командность: отношения могут восприниматься более индивидуалистично, чем формат «мы». ";
+
+  }
+
+
+  if (s.loyalty >= 80) {
+
+    text +=
+      "Лояльность высокая: близкие отношения воспринимаются как значимая зона ответственности. ";
+
+  }
+
+
+  if (s.maturity >= 80) {
+
+    text +=
+      "Эмоциональная зрелость высокая: человек склонен разбираться в причинах конфликтов, а не только реагировать на эмоции. ";
+
+  }
+
+
+  if (s.commitment < 55) {
+
+    text +=
+      "Отношение к долгосрочности более осторожное или неопределённое. ";
+
+  }
+
+
+  if (!text) {
+
+    text =
+      "Профиль достаточно сбалансированный: выраженного перекоса по ключевым шкалам не обнаружено.";
+
+  }
+
+
+  message.textContent = text;
+}
+
+
+
+/*
+=========================================
+NUMBER ANIMATION
+=========================================
+*/
+
+function animateNumber(id, target) {
+
+  const element =
+    document.getElementById(id);
+
+  let current = 0;
+
+  const duration = 900;
+
+  const start =
+    performance.now();
+
+
+  function update(time) {
+
+    const progress =
+      Math.min(
+        (time - start) / duration,
+        1
+      );
+
+
+    current =
+      Math.floor(
+        progress * target
+      );
+
+
+    element.textContent =
+      current;
+
+
+    if (progress < 1) {
+
+      requestAnimationFrame(update);
+
+    }
+
+  }
+
+
+  requestAnimationFrame(update);
+}
+
+
+
+
+restartBtn.addEventListener(
+  "click",
+  () => {
+
+    resultScreen.classList.remove(
+      "active"
+    );
+
+    startScreen.classList.add(
+      "active"
+    );
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+);
