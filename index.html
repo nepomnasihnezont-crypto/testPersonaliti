@@ -1,249 +1,153 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Психологический тест на стиль поведения и совместимость">
-  <title>Тест личности</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Небольшой ситуационный тест личности"
+    >
+
+    <title>Тест личности</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <main class="app">
 
-    <!-- START SCREEN -->
-    <section id="start-screen" class="screen active">
-      <div class="glass-card start-card">
+<main class="app">
 
-        <div class="badge">PERSONALITY TEST</div>
+    <!-- START -->
+    <section class="screen start-screen active" id="startScreen">
 
-        <h1>Как ты устроен<br>в отношениях и жизни?</h1>
+        <div class="badge">
+            PERSONALITY TEST
+        </div>
+
+        <h1>
+            Как ты устроен<br>
+            в отношениях и жизни
+        </h1>
 
         <p class="subtitle">
-          Небольшой ситуационный тест.
-          Здесь нет правильных или неправильных ответов —
-          выбирай то, что ближе тебе.
+            Небольшой ситуационный тест. Здесь нет правильных
+            или неправильных ответов — выбирай то, что ближе тебе.
         </p>
 
         <div class="info-row">
-          <div>
-            <span class="info-number">25</span>
-            <span class="info-label">вопросов</span>
-          </div>
+            <div>
+                <strong>30</strong>
+                <span>вопросов</span>
+            </div>
 
-          <div>
-            <span class="info-number">5–7</span>
-            <span class="info-label">минут</span>
-          </div>
+            <div>
+                <strong>10+</strong>
+                <span>минут</span>
+            </div>
 
-          <div>
-            <span class="info-number">∞</span>
-            <span class="info-label">вариантов быть собой</span>
-          </div>
+            <div>
+                <strong>∞</strong>
+                <span>вариантов</span>
+            </div>
         </div>
 
-        <button id="start-btn" class="primary-btn">
-          Начать тест
-          <span>→</span>
+        <button class="primary-btn" id="startBtn">
+            Начать тест
         </button>
 
-        <p class="tiny-note">
-          Отвечай первым вариантом, который действительно кажется твоим.
+        <p class="small-note">
+            Отвечай интуитивно. Не пытайся искать «правильный» вариант.
         </p>
 
-      </div>
     </section>
 
 
-    <!-- QUIZ SCREEN -->
-    <section id="quiz-screen" class="screen">
+    <!-- QUIZ -->
+    <section class="screen quiz-screen" id="quizScreen">
 
-      <header class="quiz-header">
-        <div class="top-line">
-          <span id="question-counter">Вопрос 1 из 25</span>
-          <span id="percent">4%</span>
+        <div class="quiz-top">
+
+            <div class="question-counter">
+                Вопрос <span id="currentQuestion">1</span>
+                из <span id="totalQuestions">30</span>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
         </div>
 
-        <div class="progress-bar">
-          <div id="progress" class="progress"></div>
-        </div>
-      </header>
 
+        <div class="question-card">
 
-      <div class="question-card">
+            <div class="question-number" id="questionNumber">
+                01
+            </div>
 
-        <div id="question-number" class="question-number">
-          01
-        </div>
+            <h2 id="questionText">
+                Вопрос
+            </h2>
 
-        <h2 id="question-text">
-          Вопрос
-        </h2>
+            <div class="answers" id="answers"></div>
 
-        <div id="answers" class="answers">
-          <!-- answers inserted by JS -->
         </div>
 
-        <button id="next-btn" class="next-btn" disabled>
-          Далее →
+
+        <button
+            class="next-btn"
+            id="nextBtn"
+            disabled
+        >
+            Далее
         </button>
 
-      </div>
-
     </section>
 
 
-    <!-- RESULT SCREEN -->
-    <section id="result-screen" class="screen">
+    <!-- RESULT -->
+    <section class="screen result-screen" id="resultScreen">
 
-      <div class="glass-card result-card">
+        <div class="result-badge">
+            YOUR RESULT
+        </div>
 
-        <div class="badge">YOUR PROFILE</div>
+        <p class="result-label">
+            Твой основной профиль
+        </p>
 
-        <h1 id="result-title">
-          Твой профиль
+        <h1 id="resultTitle">
+            Профиль
         </h1>
 
-        <p id="result-description" class="result-description">
-          Описание
+        <p class="result-description" id="resultDescription">
+            Описание
         </p>
 
 
-        <div class="score-box">
-          <div class="score-label">
-            Совместимость с определённым типом партнёра
-          </div>
+        <div class="traits" id="traits"></div>
 
-          <div class="score">
-            <span id="compatibility-score">0</span>
-            <small>%</small>
-          </div>
 
-          <div class="score-bar">
-            <div id="score-progress"></div>
-          </div>
+        <div class="result-message">
+            <span class="quote-mark">“</span>
 
-          <p id="score-text"></p>
+            <p id="resultMessage">
+                Результат
+            </p>
         </div>
 
 
-        <div class="traits">
-          <h3>Твои основные черты</h3>
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Инициативность</span>
-              <span id="initiative-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="initiative-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Надёжность</span>
-              <span id="reliability-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="reliability-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Командность</span>
-              <span id="team-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="team-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Личные границы</span>
-              <span id="boundaries-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="boundaries-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Самостоятельность</span>
-              <span id="independence-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="independence-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Эмоциональная зрелость</span>
-              <span id="maturity-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="maturity-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Лояльность</span>
-              <span id="loyalty-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="loyalty-bar"></div>
-            </div>
-          </div>
-
-
-          <div class="trait">
-            <div class="trait-header">
-              <span>Серьёзность намерений</span>
-              <span id="commitment-value">0</span>
-            </div>
-
-            <div class="trait-bar">
-              <div id="commitment-bar"></div>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div id="hidden-message" class="hidden-message">
-          <!-- JS -->
-        </div>
-
-
-        <button id="restart-btn" class="secondary-btn">
-          Пройти ещё раз
+        <button class="primary-btn restart-btn" id="restartBtn">
+            Пройти ещё раз
         </button>
-
-      </div>
 
     </section>
 
-  </main>
+</main>
 
-  <script src="script.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
